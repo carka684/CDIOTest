@@ -15,7 +15,6 @@ import org.opencv.ml.CvSVM;
 import org.opencv.ml.CvSVMParams;
 import org.opencv.objdetect.HOGDescriptor;
 
-import sun.security.util.Length;
 import edu.wildlifesecurity.framework.identification.impl.HOGIdentification;
 import edu.wildlifesecurity.framework.identification.impl.ImageReader;
 
@@ -27,13 +26,23 @@ public class hello
 	{
 		System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
 		//testMat();
-//		HOGIdentification hogTest = new HOGIdentification(); 
-//		hogTest.init();
-//		hogTest.trainClassifier("Images/trainIm/","", "SVM.txt");
-//		hogTest.evaluateClassifier("Images/valIm/", "");
-		ImageReader reader = new ImageReader();
-		reader.readImages("Images/trainIm/");
+		HOGIdentification hogTest = new HOGIdentification(); 
+		hogTest.init();
+		hogTest.trainClassifier("Images/trainIm/","", "SVM.txt");
+		hogTest.evaluateClassifier("Images/valIm/", "");
+//		ImageReader reader = new ImageReader();
+//		reader.readImages("Images/trainIm/","");
+		//testMat2();
 	}
+	public static void testMat2()
+	{
+		Mat matrix = Mat.ones(new Size(5,5), CvType.CV_16S);
+		Mat row = Mat.ones(new Size(1,5), CvType.CV_16S);
+		Mat submat = matrix.submat(0, 1, 0, 5);
+		Core.add(submat, row.t(), submat);
+		System.out.println(matrix.dump());
+	}
+	
 	public static Vector<String> listFilesForFolder(String classFolder) {
 		Vector<String> filesVec = new Vector<String>();
 		File[] folders = new File(classFolder).listFiles();
